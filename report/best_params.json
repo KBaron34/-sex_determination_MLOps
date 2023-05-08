@@ -1,0 +1,1 @@
+{"border_count": 254, "random_seed": 10, "depth": 5, "random_strength": 15, "iterations": 1000, "learning_rate": 0.05500000000000001, "l2_leaf_reg": 0.03162277660168379, "grow_policy": "SymmetricTree", "boosting_type": "Ordered", "bootstrap_type": "Bernoulli"}

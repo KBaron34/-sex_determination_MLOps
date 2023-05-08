@@ -1,0 +1,5 @@
+.ipynb_checkpoints
+catboost_info
+.idea
+__pycache__
+.DS_Store

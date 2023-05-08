@@ -1,0 +1,91 @@
+preprocessing:
+  list_non: ['price', 'age', 'is_male']
+  map_change_columns:
+    month:
+      1: January
+      2: February 
+      3: March
+      4: April
+      5: May
+      6: June
+      7: July
+      8: August
+      9: September
+      10: October
+      11: November
+      12: December
+  change_type_columns:
+    region_name: category
+    city_name: category
+    cpe_manufacturer_name: category
+    cpe_model_name: category
+    url_host: category
+    cpe_type_cd: category
+    cpe_model_os_type: category
+    month: category
+    part_of_day: category
+    is_male: int8
+    request_cnt: int8
+    user_id: int32
+    bins_day: category
+    bins_price: category
+    bins_age: category
+  change_type_columns_test:
+    region_name: category
+    city_name: category
+    cpe_manufacturer_name: category
+    cpe_model_name: category
+    url_host: category
+    cpe_type_cd: category
+    cpe_model_os_type: category
+    month: category
+    part_of_day: category
+    request_cnt: int8
+    user_id: int32
+    bins_day: category
+    bins_price: category
+    bins_age: category
+  map_bins_columns:
+    day: [10, 20]
+    price: [20000, 50000]
+    age: [35, 55]
+  drop_columns: ['date', 'day', 'age', 'price']
+  drop_unique: [ 'date']
+  list_select: ['user_id', 'url_host', 'city_name', 'cpe_model_name', 'bins_price', 'part_of_day', 'bins_age', 'month']
+  list_group: ['user_id', 'url_host']
+  train_data_path: ../data/processed/data_train.parquet
+  target_train_path: ../data/processed/target_train.pqt
+  df_path_proc: ../data/processed/df.csv
+  unique_values_path: ../data/processed/unique_values.json
+  als_path: ../data/processed/model_als.joblib
+  factors: 50
+  iterations: 30
+  regularization: 0.1
+  test_size: 0.2
+  test_size_val: 0.16
+  target_column: is_male
+  random_state: 10
+
+train:
+  n_trials: 10
+  n_folds: 5
+  random_state: 10
+  early_stopping_rounds: 100
+  test_size: 0.2
+  target_column: is_male
+  drop_model: ['user_id', 'age', 'is_male']
+  model_path: ../models/model.joblib
+  study_path: ../models/study.joblib
+  metrics_path: ../report/metrics.json
+  params_path: ../report/best_params.json
+
+evaluate:
+  predict_path: ../data/check/test.parquet
+
+endpoints:
+  train: 'http://fastapi:8000/train'
+  prediction_from_file: 'http://fastapi:8000/predict'
+  prediction_input: 'http://fastapi:8000/predict_input'
+  #train: 'http://localhost:8000/train'
+  #prediction_from_file: 'http://localhost:8000/predict'
+  #prediction_input: 'http://localhost:8000/predict_input'
